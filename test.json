@@ -1,0 +1,86 @@
+{
+  "username" : "barisayyildiz",
+  "password" : "123456789",
+  "diziler" : 
+  [
+    {
+      "name" : "The Office",
+      "id" : 12,
+      "sezonlar" : 
+      [
+        {
+          "bolumler" : 
+          [
+            {
+							"name" : "Downsize",
+							"checked" : false
+						},
+
+						{
+							"name" : "New girl",
+							"checked" : false
+						}
+          ]
+        },
+        
+        {
+          "bolumler" : 
+          [
+            {
+							"name" : "Healthcare",
+							"checked" : false
+						},
+
+						{
+							"name" : "Motivational Speech",
+							"checked" : true
+						}
+          ]
+          
+          
+        }
+      ]
+    }
+  ]
+}
+
+/*
+{
+	"name" : "The Office",
+	"id" : 12,
+	"sezonlar" : 
+	[
+		//first season
+		{
+			"bolumler" : 
+			[
+				{
+					"name" : "Downsize",
+					"checked" : false
+				},
+
+				{
+					"name" : "New girl",
+					"checked" : false
+				}
+			]
+		},
+
+		//second season
+		{
+			"bolumler" : 
+			[
+				{
+					"name" : "Healthcare",
+					"checked" : false
+				},
+
+				{
+					"name" : "Motivational Speech",
+					"checked" : true
+				}
+			]
+		}
+	]
+}
+*/
