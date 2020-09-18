@@ -3,13 +3,64 @@ const router = express.Router();
 const library = require("../library.js");
 const Models = require("../Models.js");
 
-router.post("/save", (req, res) => {
+router.post("/save", async (req, res) => {
 
-	let episodeNames = library.webScrapping(req.body.id, Number(req.body.totalSeasons));
+	//let episodeNames = library.webScrapping(req.body.id, Number(req.body.totalSeasons));
+	let {episodes, title, id} = await library.makeAPICall(req.body.name);
 
-	
+	let series = {};
+	series.name = title;
+	series.id = id;
+	series.seasons = [];
 
-	console.log(req.body);
+	for(let i=0; i<episodes.length; i++)
+	{
+		series.seasons.push({});
+		series.seasons[i].episodes = [];
+		for(let j=0; j<episodes[i].length; j++)
+		{
+			series.seasons[i].episodes.push({
+				name : episodes[i][j],
+				checked : false
+			})
+		}
+	}
+
+
+	//console.log(series);
+	series.seasons.forEach(row => console.log(row));
+
+	await Models.seriesModel.create(series);
+
+	let docs = await Models.seriesModel.find({});
+
+	//console.log(series);
+
+	//diziyi veri tabanına kaydet
+
+	/*
+	let series = {}; series.name
+	let episodes = [];
+	for(let i=0; i<episodeNames.length; i++)
+	{
+		episodes.push([]);
+
+		for(let j=0; i<episodeNames[i].length; j++)
+		{
+			episodes[i].push(episodeNames)
+
+
+		}
+
+
+	}
+	*/
+
+
+
+
+	//console.log(req.body);
+	//res.send(episodeNames);
 
 })
 

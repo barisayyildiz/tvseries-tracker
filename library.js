@@ -1,19 +1,36 @@
 const got = require("got");
 const jsdom = require("jsdom");
+const fetch = require("node-fetch");
 
 
-async function webScrapping(id, num)
+async function makeAPICall(name)
+{
+	let apikey = "976e02f";
+
+	//get data from IMDb API
+	let response = await fetch(`http://www.omdbapi.com/?apikey=${apikey}&t=${name}&type=series`)
+	let data = await response.json();
+
+	let object = {id : data.imdbID, totalSeasons : data.totalSeasons};
+
+	console.log(object);
+
+	return {episodes : await webScrapping(object), title : data.Title, id : data.imdbID};
+
+}
+
+async function webScrapping(object)
 {
 
 	//https://www.imdb.com/title/tt0386676/episodes/_ajax?season=1
 
 	let episodeNames = [];
 
-	for(let i=1; i<=num; i++)
+	for(let i=1; i<=object.totalSeasons; i++)
 	{
 		episodeNames.push([]);
 
-		let url = `https://www.imdb.com/title/${id}/episodes/_ajax?season=${i}`
+		let url = `https://www.imdb.com/title/${object.id}/episodes/_ajax?season=${i}`
 
 		let res = await got(url);
 		let pagedom = new jsdom.JSDOM(res.body.toString());
@@ -44,4 +61,4 @@ async function webScrapping(id, num)
 }
 
 
-module.exports = {webScrapping : webScrapping};
+module.exports = {webScrapping : webScrapping, makeAPICall : makeAPICall};

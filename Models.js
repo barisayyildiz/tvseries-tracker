@@ -12,17 +12,19 @@ let Episode = new mongoose.Schema({
 
 let Season = new mongoose.Schema({
 
-	bolumler : [Episode]
+	episodes : [Episode]
 
 })
 
 let Series = new mongoose.Schema({
 
 	name : String,
-	id : Number,
+	id : String,
 	seasons : [Season]
 
 
+}, {
+	versionKey: false
 })
 
 let User = new mongoose.Schema({

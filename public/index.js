@@ -18,6 +18,16 @@ document.getElementById("btn").addEventListener("click", async () => {
 
 	name = name.slice(0,-1);
 
+	fetch("/save", {
+
+		method: "POST",
+		headers : {
+			"Content-Type" : "application/json",
+		},
+		body: JSON.stringify({name : name})
+	})
+
+	/*
 	//hide that later !!!
 	let apikey = "976e02f";
 
@@ -36,7 +46,8 @@ document.getElementById("btn").addEventListener("click", async () => {
     },
     body: JSON.stringify(object)
 
-	})	
+	})
+	*/
 
 	/*
 	fetch("http://www.omdbapi.com/?apikey=976e02f&i=the+office&Season=1")
