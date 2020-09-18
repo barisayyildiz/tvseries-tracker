@@ -6,11 +6,10 @@ const Models = require("../Models.js");
 router.post("/save", async (req, res) => {
 
 	//let episodeNames = library.webScrapping(req.body.id, Number(req.body.totalSeasons));
-	let {episodes, title, id} = await library.makeAPICall(req.body.name);
+	let {episodes, title, id, poster} = await library.makeAPICall(req.body.name);
 
 	let series = {};
-	series.name = title;
-	series.id = id;
+	series.name = title, series.id = id, series.poster = poster;
 	series.seasons = [];
 
 	for(let i=0; i<episodes.length; i++)

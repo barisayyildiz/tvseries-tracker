@@ -20,6 +20,7 @@ let Series = new mongoose.Schema({
 
 	name : String,
 	id : String,
+	poster : String,
 	seasons : [Season]
 
 
