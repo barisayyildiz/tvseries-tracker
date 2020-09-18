@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const library = require("../library.js");
+const Models = require("../Models.js");
 
 router.post("/save", (req, res) => {
 
-	library.webScrapping(req.body.id, Number(req.body.totalSeasons));
+	let episodeNames = library.webScrapping(req.body.id, Number(req.body.totalSeasons));
+
+	
 
 	console.log(req.body);
 
