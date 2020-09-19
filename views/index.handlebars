@@ -1,8 +1,46 @@
-<h1>eyyyo</h1>
 
-<input type="text" name="" id="input">
-<button id="btn">Send</button>
+<div class="wrapper">
+
+	<ul>
+	{{#each data}}
+
+		
+		
+			<li>
+				
+				<div class="card">
+					<a href="/series/{{this.id}}">
+						<img class="card-img-top poster" src="{{this.poster}}" alt="Card image cap">
+					</a> 	
+				  <div class="card-body">
+				    <h5 class="card-title">{{this.name}}</h5>
+				    <a href="#" class="btn btn-primary mt-1">Add to Favourites</a>
+				  </div>
+				</div>
+
+			</li>		
 
 
+		{{/each}}
 
-<script type="text/javascript" src="index.js"></script>
+	</ul>
+
+	<!--
+	<ul>
+		
+		{{#each data}}
+
+			<li class="list-item">
+				<a href="">
+					<img src="{{this.poster}}">
+				</a>
+				<button>tıkla</button>
+			</li>
+
+
+		{{/each}}
+
+	</ul>
+	-->
+
+</div>

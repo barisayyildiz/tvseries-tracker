@@ -3,6 +3,68 @@ const router = express.Router();
 const library = require("../library.js");
 const Models = require("../Models.js");
 
+
+router.get("/", async (req, res) => {
+
+	Models.seriesModel.find({}, (err, docs) => {
+
+		let frontPageData = [];
+
+		docs.forEach(series => {
+
+			frontPageData.push({});
+			frontPageData[frontPageData.length-1].name = series.name;
+			frontPageData[frontPageData.length-1].id = series.id;
+			frontPageData[frontPageData.length-1].poster = series.poster;
+
+		})
+
+		console.log(frontPageData);
+		res.render("index", {
+
+			data : frontPageData,
+			css : "./style/index.css"
+
+		});
+
+	})
+
+
+})
+
+router.get("/series/:id", (req, res) => {
+
+	console.log(req.params);
+
+	Models.seriesModel.find({id : req.params.id}, (err ,docs) => {
+
+		console.log(docs[0]);
+
+		let frontPageData = {};
+		frontPageData.name = docs[0].name;
+		frontPageData.id = docs[0].id;
+		frontPageData.poster = docs[0].poster;
+
+		res.render("single_series", {
+
+			data : frontPageData
+
+		});
+
+	})
+
+
+
+})
+
+router.get("/add", async(req, res) => {
+
+
+	res.render("add");
+
+
+})
+
 router.post("/save", async (req, res) => {
 
 	//let episodeNames = library.webScrapping(req.body.id, Number(req.body.totalSeasons));
@@ -63,27 +125,27 @@ router.post("/save", async (req, res) => {
 
 })
 
+/*
+
 router.get("/", (req, res) => {
 
 	
 	Models.seriesModel.find({}, (err ,docs) => {
 
-		console.log("docs : ", docs);
 
-		res.send(docs);
+		console.log(docs[0].poster);
+
+		res.render("anasayfa", {
+
+			url : docs[0].poster
+
+		})
 
 	})
 	
 
 })
 
-router.get("/add", async(req, res) => {
-
-
-	res.render("index");
-
-
-})
 
 router.get("/add", async (req, res) => {
 
@@ -137,6 +199,8 @@ router.get("/users", (req, res) => {
 	})
 
 })
+
+*/
 
 /*
 

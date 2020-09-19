@@ -1,0 +1,45 @@
+.wrapper
+{
+	width: 90%;
+	margin: 0px auto;
+	border: 1px solid black;
+	border-radius: 1%;
+	margin-top: 50px;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+ul
+{
+	list-style: none;
+	border: 1px solid red;
+	padding-top: 10px;
+	text-align: center;
+}
+
+ul li
+{
+	display: inline;
+}
+
+.poster
+{
+	/*height: 27vw;*/
+	width: 100%;
+}
+
+
+.card
+{
+	display:inline-block;
+	margin: 5px 10px;
+	width: 18rem;
+}
+
+.btn
+{
+	width: 100%;
+}
