@@ -12,7 +12,7 @@ a
 	text-decoration: none;
 }
 
-ul
+#indexPage
 {
 	list-style: none;
 	border: 1px solid red;
@@ -20,7 +20,7 @@ ul
 	text-align: center;
 }
 
-ul li
+#indexPage li
 {
 	display: inline;
 }
