@@ -1,106 +1,124 @@
 
 
-<nav id="seasons">
+<div class="wrapper">
+
+	<div class="card">
+		<a href="/series/{{this.id}}">
+			<img class="card-img-top poster" src="{{data.poster}}" alt="Card image cap">
+		</a> 	
+	  <div class="card-body">
+	    <h5 class="card-title">{{data.name}}</h5>
+	    <a href="#" class="btn btn-primary mt-1">Add to Favourites</a>
+	  </div>
+	</div>
+
+	<nav id="seasons">
+		
+		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+			{{#each data.seasons}}
+
+				{{#if @first}}
+
+					<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-{{@index}}" role="tab" aria-controls="nav-1" aria-selected="true"></a>
+
+				{{else}}
+
+					<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-{{@index}}" role="tab" aria-controls="nav-2" aria-selected="false"></a>
+
+
+				{{/if}}
+
+
+			{{/each}}
+
+		</div>
+
+		<div class="tab-content" id="nav-tabContent">
+
+			{{#each data.seasons}}
+
+				{{#if @first}}
+
+				<div class="tab-pane fade show active" id="nav-{{@index}}" role="tabpanel" aria-labelledby="nav-home-tab">
+
+					<table>
+						
+						<thead>
+							<tr>
+								<td></td>
+								<td>Sezon</td>
+								<td>Bölüm</td>
+								<td>Bölüm Adı</td>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each this.episodes}}
+
+								<tr>
+									<td><input type="checkbox" name=""></td>
+									<td>{{@index}}.</td>
+									<td>{{@index}}.</td>
+									<td>{{this.name}}</td>
+								</tr>
+
+							{{/each}}
+
+						</tbody>
+
+
+					</table>
+
+				</div>
+
+				{{else}}
+
+				<div class="tab-pane fade" id="nav-{{@index}}" role="tabpanel" aria-labelledby="nav-home-tab">
+
+					<table>
+						
+						<thead>
+							<tr>
+								<td></td>
+								<td>Sezon</td>
+								<td>Bölüm</td>
+								<td>Bölüm Adı</td>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each this.episodes}}
+
+								<tr>
+									<td><input type="checkbox" name=""></td>
+									<td>1.</td>
+									<td>1.</td>
+									<td>{{this.name}}</td>
+								</tr>
+
+							{{/each}}
+
+						</tbody>
+
+
+					</table>
+
+				</div>
+
+
+				{{/if}}
+
+			{{/each}}
+
+		</div>
+
+				
+	</nav>
 	
-	<div class="nav nav-tabs" id="nav-tab" role="tablist">
-
-		{{#each data.seasons}}
-
-			{{#if @first}}
-
-				<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-{{@index}}" role="tab" aria-controls="nav-1" aria-selected="true"></a>
-
-			{{else}}
-
-				<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-{{@index}}" role="tab" aria-controls="nav-2" aria-selected="false"></a>
 
 
-			{{/if}}
+</div>
 
 
-		{{/each}}
-
-	</div>
-
-	<div class="tab-content" id="nav-tabContent">
-
-		{{#each data.seasons}}
-
-			{{#if @first}}
-
-			<div class="tab-pane fade show active" id="nav-{{@index}}" role="tabpanel" aria-labelledby="nav-home-tab">
-
-				<table>
-					
-					<thead>
-						<tr>
-							<td></td>
-							<td>Sezon</td>
-							<td>Bölüm</td>
-							<td>Bölüm Adı</td>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each this.episodes}}
-
-							<tr>
-								<td><input type="checkbox" name=""></td>
-								<td>{{@index}}.</td>
-								<td>{{@index}}.</td>
-								<td>{{this.name}}</td>
-							</tr>
-
-						{{/each}}
-
-					</tbody>
-
-
-				</table>
-
-			</div>
-
-			{{else}}
-
-			<div class="tab-pane fade" id="nav-{{@index}}" role="tabpanel" aria-labelledby="nav-home-tab">
-
-				<table>
-					
-					<thead>
-						<tr>
-							<td></td>
-							<td>Sezon</td>
-							<td>Bölüm</td>
-							<td>Bölüm Adı</td>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each this.episodes}}
-
-							<tr>
-								<td><input type="checkbox" name=""></td>
-								<td>1.</td>
-								<td>1.</td>
-								<td>{{this.name}}</td>
-							</tr>
-
-						{{/each}}
-
-					</tbody>
-
-
-				</table>
-
-			</div>
-
-
-			{{/if}}
-
-		{{/each}}
-
-	</div>
-
-			
-</nav>
 
 
 <script type="text/javascript" src="../script/single.js"></script>

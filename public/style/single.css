@@ -4,6 +4,21 @@
 	width: 100%;
 }
 */
+
+.wrapper
+{
+	display: grid;
+	grid-template-columns: 20% 80%;
+	border: 1px solid green;
+	width: 80%;
+	margin: 30px auto;
+}
+
+.card
+{
+	width: 100%;
+}
+
 ul
 {
 	list-style: none;
@@ -12,12 +27,24 @@ ul
 
 #seasons
 {
-	width: 50%;
 	border: 1px solid black;
 	margin: 0px auto;
+	width: 100%;
+}
+
+#nav-tab a
+{
+	margin : 0px auto;
 }
 
 table
 {
 	border : 1px solid red;
+	width: 100%;
+	margin : 0px auto;
+}
+
+table tbody tr td
+{
+	padding : 5px 10px;
 }
