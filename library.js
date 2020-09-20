@@ -11,6 +11,8 @@ async function makeAPICall(name)
 	let response = await fetch(`http://www.omdbapi.com/?apikey=${apikey}&t=${name}&type=series`)
 	let data = await response.json();
 
+	console.log("data : ", data);
+
 	let object = {id : data.imdbID, totalSeasons : data.totalSeasons};
 
 	console.log(object);

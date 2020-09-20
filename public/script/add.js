@@ -4,7 +4,7 @@ document.getElementById("btn").addEventListener("click", async () => {
 
 
 	//http://www.omdbapi.com/?apikey=976e02f&t=the+office
-	let input = document.getElementById("input");
+	let input = document.getElementById("seriesname");
 	let text = input.value;
 
 	let temp = text.split(" ");

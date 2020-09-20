@@ -63,6 +63,8 @@ router.get("/add", async(req, res) => {
 router.post("/save", async (req, res) => {
 
 	//let episodeNames = library.webScrapping(req.body.id, Number(req.body.totalSeasons));
+	console.log("req.body : ", req.body);
+
 	let {episodes, title, id, poster} = await library.makeAPICall(req.body.name);
 
 	let series = {};
