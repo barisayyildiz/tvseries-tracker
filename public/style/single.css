@@ -27,6 +27,7 @@
 	border: 1px solid black;
 	margin: 0px auto;
 	width: 100%;
+	padding : 10px;
 }
 
 #nav-tab a
@@ -49,4 +50,20 @@ table tbody tr td
 input[type="checkbox"]{
   width: 30px; /*Desired width*/
   height: 30px; /*Desired height*/
+}
+
+thead tr
+{
+	margin : 30px;
+}
+
+thead tr td
+{
+	border: 1px solid cyan;
+	padding : 10px;
+}
+
+.btn
+{
+	width: 100%;
 }

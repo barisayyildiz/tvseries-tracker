@@ -33,24 +33,83 @@ function indexEpisodes()
 
 
 	}
-	
-	seasons.forEach(item => {
-
-		let episodes = item.children[0].children[1].children;
-		
-		for(let i=0; i<episodes.length; i++)
-		{
-			console.log(episodes[i]);
-		}
-
-
-	});
 
 
 }
 
+function selectAllSeason()
+{
+	let checkbox = document.querySelectorAll("thead tr td input");
+	let tables = document.querySelectorAll("table");
+	console.log(checkbox);
+
+	console.log(tables);
+
+	for(let i=0; i<checkbox.length; i++)
+	{
+		checkbox[i].addEventListener("click", () => {
+
+			let episodes = tables[i].children[1].children;
+
+			if(checkbox[i].checked)
+			{				
+				for(let j=0; j<episodes.length; j++)
+				{
+					episodes[j].children[0].children[0].checked = true;
+				}
+			}else
+			{
+				for(let j=0; j<episodes.length; j++)
+				{
+					episodes[j].children[0].children[0].checked = false;
+				}
+			}
+
+		})
+
+	}
+
+}
+
+function selectAllSeries()
+{
+	let add = document.getElementById("selectall");
+	let remove = document.getElementById("clearall");
+	let tables = document.querySelectorAll("table");
+
+	add.addEventListener("click", () => {
+
+		let tables = document.querySelectorAll("table");
+
+		for(let i=0; i<tables.length; i++)
+		{
+			let episodes = tables[i].children[1].children;
+			for(let j=0; j<episodes.length; j++)
+			{
+				episodes[j].children[0].children[0].checked = true;
+			}
+		}
+
+	})	
+
+	remove.addEventListener("click", () => {
+
+		for(let i=0; i<tables.length; i++)
+		{
+			let episodes = tables[i].children[1].children;
+			for(let j=0; j<episodes.length; j++)
+			{
+				episodes[j].children[0].children[0].checked = false;
+			}
+		}
+
+	})
+
+}
+
+
 indexHeader();
-
 indexEpisodes();
-
+selectAllSeason();
+selectAllSeries();
 
