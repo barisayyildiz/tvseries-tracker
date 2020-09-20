@@ -36,20 +36,15 @@ router.get("/series/:id", (req, res) => {
 
 	console.log(req.params);
 
-	Models.seriesModel.find({id : req.params.id}, (err ,docs) => {
+	Models.seriesModel.find({id : req.params.id}).lean().exec((err, docs) => {
 
 		console.log(docs[0]);
-
-		let frontPageData = {};
-		frontPageData.name = docs[0].name;
-		frontPageData.id = docs[0].id;
-		frontPageData.poster = docs[0].poster;
-
 		res.render("single_series", {
 
-			data : frontPageData
+			data : docs[0],
+			css : "../style/single.css"
 
-		});
+		})
 
 	})
 

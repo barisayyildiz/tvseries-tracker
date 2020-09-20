@@ -1,0 +1,23 @@
+/*
+#v-pills-tab a
+{
+	width: 100%;
+}
+*/
+ul
+{
+	list-style: none;
+	padding : 20px 20px;
+}
+
+#seasons
+{
+	width: 50%;
+	border: 1px solid black;
+	margin: 0px auto;
+}
+
+table
+{
+	border : 1px solid red;
+}
