@@ -3,7 +3,6 @@
 	width: 90%;
 	margin: 0px auto;
 	border: 1px solid black;
-	border-radius: 1%;
 	margin-top: 50px;
 }
 
@@ -16,13 +15,15 @@ a
 {
 	list-style: none;
 	border: 1px solid red;
-	padding-top: 10px;
 	text-align: center;
+	display: grid;
+	grid-template-columns: 20% 20% 20% 20% 20%;
+	padding : 0px;
+
 }
 
 #indexPage li
 {
-	display: inline;
 }
 
 .poster
@@ -34,12 +35,58 @@ a
 
 .card
 {
-	display:inline-block;
-	margin: 5px 10px;
-	width: 18rem;
+	/*width: 18rem;*/
 }
 
 .btn
 {
 	width: 100%;
 }
+
+@media only screen and (max-width: 850px)
+{
+	#indexPage
+	{
+		grid-template-columns: 33.3% 33.3% 33.3%;
+
+	}
+}
+
+@media only screen and (max-width: 550px)
+{
+	#indexPage
+	{
+		grid-template-columns: 50% 50%;
+
+	}
+}
+
+@media only screen and (max-width: 450px)
+{
+	#indexPage
+	{
+		grid-template-columns: 100%;
+
+	}
+}
+
+
+
+
+/*
+@media only screen and (max-width: 1050px)
+{
+	.card
+	{
+		width: 30%;
+	}
+}
+
+@media only screen and (max-width: 800px)
+{
+	.card
+	{
+		width: 90%;
+	}
+}
+*/

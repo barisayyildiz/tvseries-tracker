@@ -13,3 +13,12 @@ form
 {
 	width: 20%;
 }
+
+@media only screen and (max-width: 991px)
+{
+	form
+	{
+		width: 100%;
+	}
+}
+
