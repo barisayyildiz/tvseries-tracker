@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 
 		})
 
-		console.log(frontPageData);
+		//console.log(frontPageData);
 		res.render("index", {
 
 			data : frontPageData,
@@ -51,6 +51,44 @@ router.get("/series/:id", (req, res) => {
 
 
 })
+
+
+router.post("/query", (req, res) => {
+
+	console.log(req.body);
+
+	Models.seriesModel.find({
+
+		"name" : {"$regex" : req.body.name, "$options" : "i"}
+
+	}, (err, docs) => {
+
+		console.log(docs);
+
+		console.log(docs.length);
+
+		let frontPageData = [];
+		for(let i=0; i<docs.length; i++)
+		{
+			frontPageData.push({});
+			frontPageData[frontPageData.length - 1].name = docs[i].name;
+			frontPageData[frontPageData.length - 1].id = docs[i].id;
+			frontPageData[frontPageData.length - 1].poster = docs[i].poster;
+		}
+
+		console.log("frontpage : ", frontPageData);
+
+		res.render("search", {
+
+			data : frontPageData,
+			css : "../style/search.css"
+
+		});
+
+	})
+
+})
+
 
 router.get("/add", async(req, res) => {
 
