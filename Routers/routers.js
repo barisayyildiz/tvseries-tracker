@@ -65,6 +65,9 @@ router.post("/query", (req, res) => {
 
 		console.log(docs);
 
+		if(docs.length > 4)
+			res.redirect(req.get('referer'));
+
 		console.log(docs.length);
 
 		let frontPageData = [];
