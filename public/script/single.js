@@ -25,7 +25,7 @@ function sendToDb()
 	.then(data => {
 
 		let send = getEpisodes();
-		console.log(send);
+		console.log(" >>> ", send);
 
 		//gets user id
 		fetch(`http://localhost:3000/user/track/${data.id}`, {
@@ -63,7 +63,7 @@ function getEpisodes()
 
 
 
-
+// Loading checked episodes to frontpage
 let node = document.querySelector(".card");
 console.log(node.id);
 
@@ -190,6 +190,8 @@ function selectAllSeries()
 			}
 		}
 
+		sendToDb();
+
 	})	
 
 	remove.addEventListener("click", () => {
@@ -203,9 +205,9 @@ function selectAllSeries()
 			}
 		}
 
-	})
+		sendToDb();
 
-	sendToDb();
+	})
 
 }
 
