@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const Models = require("./Models.js");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
-const Routers = require("./Routers/routers.js");
+const MainRouters = require("./Routers/Main.js");
+const SeriesRouters = require("./Routers/Series.js");
 
 mongoose.connect("mongodb://localhost/test", {useNewUrlParser: true, useUnifiedTopology: true}, () => console.log("Connected to database"));
 
@@ -28,4 +29,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(3000, () => console.log("Listening..."));
 
 
-app.use("/", Routers);
+app.use("/", MainRouters);
+app.use("/series/", SeriesRouters);
