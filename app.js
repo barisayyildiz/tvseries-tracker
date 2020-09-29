@@ -5,9 +5,12 @@ const Models = require("./Models.js");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const flash = require('express-flash')
-const session = require('express-session')
+const session = require('express-session');
+
 const MainRouters = require("./Routers/Main.js");
 const SeriesRouters = require("./Routers/Series.js");
+const UserRouters = require("./Routers/User.js");
+
 const passport = require("passport");
 
 require('./config/passport')(passport);
@@ -45,6 +48,21 @@ app.use(passport.session());
 app.use(flash())
 
 
+app.use((req, res, next) => {
+
+	res.locals.loggedin = req.isAuthenticated();
+
+	//auth varsa kullanıcı bilgilerini locala kaydet
+	if(req.user)
+	{
+		res.locals.username = req.user.username;
+		res.locals.id = req.user.id;
+	}
+
+	next();
+
+})
+
 
 
 
@@ -54,3 +72,4 @@ app.listen(3000, () => console.log("Listening..."));
 
 app.use("/", MainRouters);
 app.use("/series/", SeriesRouters);
+app.use("/user", UserRouters);

@@ -9,6 +9,8 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 router.get("/", ensureAuthenticated, async (req, res) => {
 
+	console.log(res.locals.loggedin);
+
 	Models.seriesModel.find({}, (err, docs) => {
 
 		let frontPageData = [];
@@ -173,6 +175,8 @@ router.post("/register", async (req, res) => {
 
 router.get("/login", (req, res) => {
 
+	console.log(res.locals.loggedin);
+
 	//flash mesajları ekle !!!
 	res.render("login", {
 
@@ -180,7 +184,8 @@ router.get("/login", (req, res) => {
 		flash : {
 			registered : req.flash("registered"),
 			password_short : req.flash("password_short"),
-			not_auth : req.flash("not_auth")
+			not_auth : req.flash("not_auth"),
+			logout : req.flash('logout')
 		}
 
 	});
@@ -195,5 +200,11 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('logout', 'You are logged out');
+  res.redirect('/login');
+});
 
 module.exports = router;

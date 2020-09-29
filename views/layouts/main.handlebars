@@ -10,7 +10,16 @@
 
 </head>
 <body>
-	{{> header}}
+
+	{{#if loggedin}}
+	
+		{{> header_auth}}
+
+	{{else}}
+
+		{{> header}}
+
+	{{/if}}
 
 	{{{body}}}
 
