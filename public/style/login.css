@@ -1,4 +1,4 @@
-.signin-container
+.login-container
 {
 	margin: 30px auto;
 	border: 1px solid black;
@@ -7,7 +7,7 @@
 	padding-top: 50px;
 }
 
-.signin-form form
+.login-form form
 {
 	margin: 50px auto;
 	width: 70%;
@@ -15,14 +15,14 @@
 	grid-template-columns: 100%;
 }
 
-.signin-form form input
+.login-form form input
 {
 	font-size: 1.2em;
 	margin: 5px 0px;
 	padding-left: 10px;
 }
 
-.signin-form form input[type=submit]
+.login-form form input[type=submit]
 {
 	width: 100%;
 	padding : 7px 0px;
@@ -36,13 +36,13 @@
 
 @media only screen and (max-width: 500px)
 {
-	.signin-container
+	.login-container
 	{
 		width: 95%;
 	}
 
 
-	.signin-form form
+	.login-form form
 	{
 		width: 90%;
 	}

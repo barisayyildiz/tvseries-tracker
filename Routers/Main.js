@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const library = require("../library.js");
 const Models = require("../Models.js");
+const bcrypt = require('bcrypt');
 
 
 router.get("/", async (req, res) => {
@@ -127,17 +128,34 @@ router.get("/register", (req, res) => {
 
 })
 
-router.post("/register", (req, res) => {
+router.post("/register", async (req, res) => {
 
 	console.log("registered as : ", req.body);
 
+	let newUser = {};
+	newUser.name = req.body.name;
+	newUser.username = req.body.username;
+	newUser.email = req.body.email;
+
+	try
+	{
+
+	}catch(e)
+	{
+		res.redirect("/login");
+	}
+
+
+
+
+
 })
 
-router.get("/signin", (req, res) => {
+router.get("/login", (req, res) => {
 
-	res.render("signin", {
+	res.render("login", {
 
-		css : "./style/signin.css"
+		css : "./style/login.css"
 
 	});
 
