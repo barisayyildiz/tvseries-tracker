@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const library = require("../library.js");
 const Models = require("../Models.js");
+const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
-router.get("/:id", (req, res) => {
+router.get("/:id", ensureAuthenticated, (req, res) => {
 
 	console.log(req.params);
 
@@ -20,6 +21,8 @@ router.get("/:id", (req, res) => {
 	})
 
 })
+
+
 
 
 module.exports = router;

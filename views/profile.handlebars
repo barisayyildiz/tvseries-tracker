@@ -1,0 +1,32 @@
+<div class="user-container">
+	
+	<h4>Welcome {{data.username}}</h4>
+
+	<div class="inner-container">
+			
+		<ul class="user-list">
+
+			{{#each data.series}}
+				<li>
+					<div class="card">
+						<a href="/series/{{this.id}}">
+							<img class="card-img-top poster" src="{{this.poster}}" alt="Card image cap">
+						</a> 	
+					  <div class="card-body">
+					    <h5 class="card-title">{{this.name}}</h5>
+
+					    <!--
+								Buraya kullanıcının progressini ekle
+					    -->
+
+					    <a href="#" class="btn btn-warning mt-1">Add to Favourites</a>
+					  </div>
+					</div>
+				</li>
+			{{/each}}
+
+		</ul>
+
+	</div>
+
+</div>

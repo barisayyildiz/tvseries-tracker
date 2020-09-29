@@ -1,4 +1,101 @@
+//Sayfa yüklendiğinde veri tabanından ilerlemeyi çek
+/*fetch("http://localhost:3000/series/json/tt3032476")
+.then(response => response.json())
+.then(data => console.log(data));*/
 
+
+// Tablodaki herhangi bir değişikliği server'a yolla
+let tables = document.querySelectorAll("table");
+
+
+tables.forEach(item => {
+
+	item.addEventListener("change", () => {
+
+		sendToDb();
+
+	})
+
+})
+
+function sendToDb()
+{
+	fetch("http://localhost:3000/api/user")
+	.then(response => response.json())
+	.then(data => {
+
+		let send = getEpisodes();
+		console.log(send);
+
+		//gets user id
+		fetch(`http://localhost:3000/user/track/${data.id}`, {
+			method: "POST",
+			headers: {
+	      'Content-Type': 'application/json'
+	      // 'Content-Type': 'application/x-www-form-urlencoded',
+	    },
+	    body: JSON.stringify(send)
+
+
+		})
+
+	})
+
+
+}
+
+function getEpisodes()
+{
+	let result = [];
+	let tables = document.querySelectorAll("tbody");
+	for(let i=0; i<tables.length; i++)
+	{
+		result.push([]);
+		let episodes = tables[i].children;
+		for(let j=0; j<episodes.length; j++)
+		{
+			result[i].push(episodes[j].children[0].children[0].checked);
+		}
+	}
+
+	return result;
+}
+
+
+
+
+let node = document.querySelector(".card");
+console.log(node.id);
+
+fetch(`http://localhost:3000/api/series/${node.id}`)
+.then(response => response.json())
+.then(data => {
+
+	console.log(data);
+	saveCheckedEpisodes(data.seasons);
+
+})
+.catch(e => console.log(e));
+
+function saveCheckedEpisodes(data)
+{
+	console.log(data);
+
+	let tables = document.querySelectorAll("tbody");
+
+	for(let i=0; i<tables.length; i++)
+	{
+		let episodes = tables[i].children;
+		for(let j=0; j<episodes.length; j++)
+		{
+			if(data[i].episodes[j].checked == true)
+			{
+				console.log(i, j);
+				episodes[j].children[0].children[0].checked = true;
+			}
+		}
+	}
+}
 
 
 function indexHeader()
@@ -69,6 +166,9 @@ function selectAllSeason()
 
 	}
 
+
+	sendToDb();
+
 }
 
 function selectAllSeries()
@@ -104,6 +204,8 @@ function selectAllSeries()
 		}
 
 	})
+
+	sendToDb();
 
 }
 

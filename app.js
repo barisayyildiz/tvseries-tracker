@@ -10,6 +10,7 @@ const session = require('express-session');
 const MainRouters = require("./Routers/Main.js");
 const SeriesRouters = require("./Routers/Series.js");
 const UserRouters = require("./Routers/User.js");
+const ApiRouters = require("./Routers/Api.js");
 
 const passport = require("passport");
 
@@ -72,4 +73,5 @@ app.listen(3000, () => console.log("Listening..."));
 
 app.use("/", MainRouters);
 app.use("/series/", SeriesRouters);
-app.use("/user", UserRouters);
+app.use("/user/", UserRouters);
+app.use("/api/", ApiRouters);

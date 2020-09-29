@@ -1,0 +1,33 @@
+.user-container
+{
+	width: 80%;
+	border: 1px solid black;
+	margin: 0px auto;
+	text-align: center;
+	padding-top: 30px;
+}
+
+.user-container .inner-container
+{
+	width: 70%;
+	border: 1px solid red;
+	margin: 0px auto;
+}
+
+.user-list
+{
+	list-style: none;
+	padding : 0px;
+}
+
+.user-list li
+{
+	/* Her bir elemanın boyutu*/
+	width: 40%;
+}
+
+.user-list li .card a img
+{
+	width: 100%;
+
+}
