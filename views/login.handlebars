@@ -2,9 +2,21 @@
 	
 	<h3>Sign In</h3>
 
+	{{flash.registered}}
+	{{flash.password_short}}
+
+	{{#if messages.error}}
+
+		{{messages.error}}
+
+	{{/if}}
+
+	{{flash.not_auth}}
+
+
 	<div class="login-form">
 		<form method="POST" action="/login">
-			<input type="text" name="username" id="username" placeholder="Username" required>
+			<input type="email" name="email" id="email" placeholder="Email" required>
 			<input type="password" name="password" id="password" placeholder="password" required>
 			<input type="submit" name="" value="Login">
 
