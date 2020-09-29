@@ -115,4 +115,33 @@ router.post("/save", async (req, res) => {
 
 })
 
+
+//Register / Sign In
+router.get("/register", (req, res) => {
+
+	res.render("register", {
+
+		css : "./style/register.css"
+
+	});
+
+})
+
+router.post("/register", (req, res) => {
+
+	console.log("registered as : ", req.body);
+
+})
+
+router.get("/signin", (req, res) => {
+
+	res.render("signin", {
+
+		css : "./style/signin.css"
+
+	});
+
+})
+
+
 module.exports = router;

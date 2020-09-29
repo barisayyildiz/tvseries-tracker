@@ -1,0 +1,65 @@
+.register-container
+{
+	margin: 30px auto;
+	border: 1px solid black;
+	width: 70%;
+	text-align: center;
+	padding-top: 50px;
+}
+
+.register-form form
+{
+	margin: 50px auto;
+	width: 70%;
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+.register-form form input
+{
+	font-size: 1.2em;
+	margin: 5px 0px;
+	padding-left: 10px;
+}
+
+.register-form form input[type=submit]
+{
+	width: 200%;
+	padding : 7px 0px;
+	background-color: #34a4eb;
+	border : 0px;
+	border-radius: 10px;
+	color : white;
+}
+
+
+@media only screen and (max-width: 700px)
+{
+	.register-form form
+	{
+		grid-template-columns: 100%;
+	}
+
+	.register-form form input[type=submit]
+	{
+		width: 100%;
+	}
+
+
+}
+
+@media only screen and (max-width: 500px)
+{
+	.register-container
+	{
+		width: 95%;
+	}
+
+
+	.register-form form
+	{
+		width: 90%;
+	}
+}
+
+
