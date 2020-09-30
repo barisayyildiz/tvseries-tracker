@@ -155,15 +155,32 @@ router.post("/register", async (req, res) => {
 			res.redirect("/login");
 		}else
 		{
-			const hashedPassword = await bcrypt.hash(req.body.password, 10);
-			newUser.password = hashedPassword;
+
+			Models.userModel.findOne({email : req.body.email}, async (err, user) => {
+
+				if(user == undefined)
+				{
+					const hashedPassword = await bcrypt.hash(req.body.password, 10);
+					newUser.password = hashedPassword;
 
 
-			await Models.userModel.create(newUser);
+					await Models.userModel.create(newUser);
 
-			req.flash("registered", "registered, now you can login...");
+					req.flash("registered", "registered, now you can login...");
 
-			res.redirect("/login");
+					res.redirect("/login");
+
+					
+				}else
+				{
+					
+					req.flash("already_registered", "This email is already registered");
+					res.redirect("/login");
+
+					
+				}
+			})
+			
 
 		}
 
@@ -191,7 +208,8 @@ router.get("/login", (req, res) => {
 			registered : req.flash("registered"),
 			password_short : req.flash("password_short"),
 			not_auth : req.flash("not_auth"),
-			logout : req.flash('logout')
+			logout : req.flash('logout'),
+			already_registered : req.flash("already_registered")
 		}
 
 	});
