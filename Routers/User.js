@@ -59,11 +59,13 @@ router.post("/track/fav/:id", ensureAuthenticated, (req, res) => {
 
 })
 
+
+
 // bölümleri kullanıcı hesabına ekleme, çıkarma, güncelleme
 router.post("/track/:id", ensureAuthenticated, (req, res) => {
 	console.log("---------------------");
 	console.log(req.body);
-	console.log(req.user);
+	//console.log(req.user);
 	console.log("---------------------");
 
 
@@ -78,34 +80,13 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 			//kayıtlı değil, yeni eklenecek
 			if(found == undefined)
 			{
-				let temp = 0;
-				let data = req.body.episodes;
-				for(let i=0; i<data.length; i++)
-				{
-					for(let j=0; j<data[i].length; j++)
-					{
-						if(data[i][j])
-							temp++;
-					}
-				}
-				
-				if(temp == 0)
-				{
-					console.log("eklenmedi!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-					res.end();
-					return;
-				}
-
-
-
 
 				let series = await Models.seriesModel.findById(req.body.seriesId)
-				user.series.push(series);
+				//user.series.push(series);
 
-				await user.save();
+				//await user.save();
 
 				let counter = 0;
-
 
 				for(let i=0; i<series.seasons.length; i++)
 				{
@@ -119,26 +100,26 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 				series.counter = counter;
 
-				console.log(counter);
+				user.series.push(series);
+
+				console.log("counter : ", counter);
 
 				if(counter > 0)
 				{
 					user.save(function (err) {
 						if (err) return handleError(err);
 						console.log('series updated');
+						res.end();
 					});
 				}else
 				{
 					found.remove();
 					user.save(function (err) {
 						if (err) return handleError(err);
-						console.log('series removed');
+						console.log('series removed');r
+						res.end();
 					});
 				}
-
-
-
-
 
 			}else
 			{
@@ -157,13 +138,14 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 				found.counter = counter;
 
-				console.log(counter);
+				console.log("counter : ", counter);
 
 				if(counter > 0)
 				{
 					user.save(function (err) {
 						if (err) return handleError(err);
 						console.log('series updated');
+						res.end();
 					});
 				}else
 				{
@@ -171,12 +153,10 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 					user.save(function (err) {
 						if (err) return handleError(err);
 						console.log('series removed');
+						res.end();
 					});
 				}
-
 				
-
-				res.end();
 			}
 
 		}
@@ -184,10 +164,6 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 	})
 
 
-	res.end();
-
-
 })
-
 
 module.exports = router;

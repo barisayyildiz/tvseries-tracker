@@ -4,6 +4,7 @@
 .then(data => console.log(data));*/
 
 
+
 // Tablodaki herhangi bir değişikliği server'a yolla
 let tables = document.querySelectorAll("table");
 
@@ -17,6 +18,26 @@ tables.forEach(item => {
 	})
 
 })
+
+
+let qweqwe = document.querySelectorAll(".header");
+console.log(qweqwe);
+
+/*
+let tables = document.querySelectorAll("[type=checkbox]");
+console.log(tables);
+
+tables.forEach(input => {
+
+	input.onlick = () => {
+
+		sendToDb()
+
+	}
+
+})
+*/
+
 
 function sendToDb()
 {
@@ -173,9 +194,6 @@ function selectAllSeason()
 		})
 
 	}
-
-
-	sendToDb();
 
 }
 
