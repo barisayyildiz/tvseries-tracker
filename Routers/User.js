@@ -31,10 +31,107 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
 
 })
 
-router.post("/track/:id", (req, res) => {
-
+// bölümleri kullanıcı hesabına ekleme, çıkarma, güncelleme
+router.post("/track/:id", ensureAuthenticated, (req, res) => {
+	console.log("---------------------");
 	console.log(req.body);
+	console.log(req.user);
+	console.log("---------------------");
+
+	Models.userModel.findById(req.user.id, async (err, user) => {
+
+		if(!err)
+		{
+			let series = user.series;			
+			let found = series.find(item => item._id == req.body.seriesId);
+
+			//kayıtlı değil, yeni eklenecek
+			if(found == undefined)
+			{
+
+				let series = await Models.seriesModel.findById(req.body.seriesId)
+				user.series.push(series);
+
+				await user.save();
+
+				let counter = 0;
+
+				
+				for(let i=0; i<series.seasons.length; i++)
+				{
+					for(let j=0; j<series.seasons[i].episodes.length; j++)
+					{
+						series.seasons[i].episodes[j].checked = req.body.episodes[i][j];
+						if(req.body.episodes[i][j])
+							counter++;
+					}
+				}
+
+				console.log(counter);
+
+				if(counter > 0)
+				{
+					user.save(function (err) {
+						if (err) return handleError(err);
+						console.log('series updated');
+					});
+				}else
+				{
+					found.remove();
+					user.save(function (err) {
+						if (err) return handleError(err);
+						console.log('series removed');
+					});
+				}
+
+
+
+
+
+			}else
+			{
+				let counter = 0;
+				//kayıtlı, güncellenecek
+				console.log(found);
+				for(let i=0; i<found.seasons.length; i++)
+				{
+					for(let j=0; j<found.seasons[i].episodes.length; j++)
+					{
+						found.seasons[i].episodes[j].checked = req.body.episodes[i][j];
+						if(req.body.episodes[i][j])
+							counter++;
+					}
+				}
+
+				console.log(counter);
+
+				if(counter > 0)
+				{
+					user.save(function (err) {
+						if (err) return handleError(err);
+						console.log('series updated');
+					});
+				}else
+				{
+					found.remove();
+					user.save(function (err) {
+						if (err) return handleError(err);
+						console.log('series removed');
+					});
+				}
+
+				
+
+				res.end();
+			}
+
+		}
+
+	})
+
+
 	res.end();
+
 
 })
 

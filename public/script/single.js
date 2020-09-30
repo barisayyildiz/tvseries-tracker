@@ -12,20 +12,29 @@ tables.forEach(item => {
 
 	item.addEventListener("change", () => {
 
-		sendToDb();
+		sendToDb(0);
 
 	})
 
 })
 
-function sendToDb()
+function sendToDb(val)
 {
 	fetch("http://localhost:3000/api/user")
 	.then(response => response.json())
 	.then(data => {
 
+		/*
 		let send = getEpisodes();
 		console.log(" >>> ", send);
+		*/
+
+		let send = {};
+		send.episodes = getEpisodes();
+		send.seriesId = document.querySelector(".card").id;
+		send.val = val;
+
+		//console.log(val);
 
 		//gets user id
 		fetch(`http://localhost:3000/user/track/${data.id}`, {
@@ -190,7 +199,7 @@ function selectAllSeries()
 			}
 		}
 
-		sendToDb();
+		sendToDb(1);
 
 	})	
 
@@ -205,7 +214,7 @@ function selectAllSeries()
 			}
 		}
 
-		sendToDb();
+		sendToDb(2);
 
 	})
 

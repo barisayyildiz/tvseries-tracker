@@ -15,7 +15,7 @@ router.get("/series/:id", ensureAuthenticated, (req, res) => {
 
 		let series = user.series;
 
-		let found = series.find(item => item.id == req.params.id);
+		let found = series.find(item => item._id == req.params.id);
 
 		if(found == undefined)
 		{
