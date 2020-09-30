@@ -21,8 +21,10 @@ let Series = new mongoose.Schema({
 	name : String,
 	id : String,
 	poster : String,
-	seasons : [Season]
-
+	seasons : [Season],
+	counter : Number,
+	fav : Boolean,
+	total : Number
 
 }, {
 	versionKey: false

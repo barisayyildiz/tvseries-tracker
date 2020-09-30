@@ -63,4 +63,19 @@ async function webScrapping(object)
 }
 
 
-module.exports = {webScrapping : webScrapping, makeAPICall : makeAPICall};
+function getTotalEpisodes(data)
+{
+
+	let total = 0;
+
+	for(let i=0; i<data.length; i++)
+		for(let j=0; j<data[i].length; j++)
+			total++;
+
+	console.log("<<<<<<<<<<<<<<<<<<<<<<total : ", total);
+
+	return total;
+}
+
+
+module.exports = {webScrapping : webScrapping, makeAPICall : makeAPICall, getTotalEpisodes : getTotalEpisodes};

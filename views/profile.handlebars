@@ -15,11 +15,9 @@
 					  <div class="card-body">
 					    <h5 class="card-title">{{this.name}}</h5>
 
-					    <!--
-								Buraya kullanıcının progressini ekle
-					    -->
+					    <span>{{this.counter}} / {{this.total}}</span>
 
-					    <a href="#" class="btn btn-warning mt-1">Add to Favourites</a>
+					    <button class="btn btn-warning mt-1 fav" id="{{this._id}}">Add to Favourites</button>
 					  </div>
 					</div>
 				</li>
@@ -30,3 +28,37 @@
 	</div>
 
 </div>
+
+
+<script type="text/javascript">
+
+	let buttons = document.querySelectorAll(".fav");
+
+	buttons.forEach(button => {
+
+		button.onclick = () => {
+
+			fetch("http://localhost:3000/api/user")
+			.then(response => response.json())
+			.then(data => {
+
+				//console.log(button.id);
+
+				//gets user id
+				fetch(`http://localhost:3000/user/track/fav/${data.id}`, {
+					method: "POST",
+					headers: {
+			      'Content-Type': 'application/json'
+			      // 'Content-Type': 'application/x-www-form-urlencoded',
+			    },
+			    body: JSON.stringify({seriesId : button.id})
+
+				})
+
+			})
+
+		}
+
+	})
+
+</script>

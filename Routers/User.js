@@ -31,6 +31,34 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
 
 })
 
+
+router.post("/track/fav/:id", ensureAuthenticated, (req, res) => {
+
+	//favorilere ekle
+
+	console.log(req.body);
+	res.end();
+
+	Models.userModel.findById(req.user.id, async(err, user) => {
+
+		if(!err)
+		{
+			let series = user.series;
+			console.log(series);
+			let found = series.find(item => item._id == req.body.seriesId);
+
+			found.fav = !found.fav;
+
+			await user.save();
+			console.log("saved");				
+			
+		}
+
+	})
+
+
+})
+
 // bölümleri kullanıcı hesabına ekleme, çıkarma, güncelleme
 router.post("/track/:id", ensureAuthenticated, (req, res) => {
 	console.log("---------------------");
@@ -56,7 +84,7 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 				let counter = 0;
 
-				
+
 				for(let i=0; i<series.seasons.length; i++)
 				{
 					for(let j=0; j<series.seasons[i].episodes.length; j++)
@@ -66,6 +94,8 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 							counter++;
 					}
 				}
+
+				series.counter = counter;
 
 				console.log(counter);
 
@@ -102,6 +132,8 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 							counter++;
 					}
 				}
+
+				found.counter = counter;
 
 				console.log(counter);
 

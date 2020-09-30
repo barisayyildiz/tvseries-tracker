@@ -21,6 +21,7 @@ router.get("/", ensureAuthenticated, async (req, res) => {
 			frontPageData[frontPageData.length-1].name = series.name;
 			frontPageData[frontPageData.length-1].id = series.id;
 			frontPageData[frontPageData.length-1].poster = series.poster;
+			frontPageData[frontPageData.length-1]._id = series._id;
 
 		})
 
@@ -94,8 +95,9 @@ router.post("/save", async (req, res) => {
 	let {episodes, title, id, poster} = await library.makeAPICall(req.body.name);
 
 	let series = {};
-	series.name = title, series.id = id, series.poster = poster;
+	series.name = title, series.id = id, series.poster = poster, series.counter = 0, series.fav = false;
 	series.seasons = [];
+	series.total = 0;
 
 	for(let i=0; i<episodes.length; i++)
 	{
@@ -103,6 +105,7 @@ router.post("/save", async (req, res) => {
 		series.seasons[i].episodes = [];
 		for(let j=0; j<episodes[i].length; j++)
 		{
+			series.total++;
 			series.seasons[i].episodes.push({
 				name : episodes[i][j],
 				checked : false
@@ -110,6 +113,8 @@ router.post("/save", async (req, res) => {
 		}
 	}
 
+	//series.total = library.getTotalEpisodes(series.season);
+	console.log(episodes);
 
 	//console.log(series);
 	series.seasons.forEach(row => console.log(row));
