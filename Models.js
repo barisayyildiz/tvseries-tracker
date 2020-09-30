@@ -24,7 +24,8 @@ let Series = new mongoose.Schema({
 	seasons : [Season],
 	counter : Number,
 	fav : Boolean,
-	total : Number
+	total : Number,
+	plot : String
 
 }, {
 	versionKey: false

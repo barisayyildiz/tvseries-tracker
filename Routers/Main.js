@@ -22,6 +22,7 @@ router.get("/", ensureAuthenticated, async (req, res) => {
 			frontPageData[frontPageData.length-1].id = series.id;
 			frontPageData[frontPageData.length-1].poster = series.poster;
 			frontPageData[frontPageData.length-1]._id = series._id;
+			frontPageData[frontPageData.length-1].plot = series.plot;
 
 		})
 
@@ -92,10 +93,10 @@ router.post("/save", async (req, res) => {
 	//let episodeNames = library.webScrapping(req.body.id, Number(req.body.totalSeasons));
 	console.log("req.body : ", req.body);
 
-	let {episodes, title, id, poster} = await library.makeAPICall(req.body.name);
+	let {episodes, title, id, poster, plot} = await library.makeAPICall(req.body.name);
 
 	let series = {};
-	series.name = title, series.id = id, series.poster = poster, series.counter = 0, series.fav = false;
+	series.name = title, series.id = id, series.poster = poster, series.plot = plot, series.counter = 0, series.fav = false;
 	series.seasons = [];
 	series.total = 0;
 

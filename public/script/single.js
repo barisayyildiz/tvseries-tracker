@@ -12,13 +12,13 @@ tables.forEach(item => {
 
 	item.addEventListener("change", () => {
 
-		sendToDb(0);
+		sendToDb();
 
 	})
 
 })
 
-function sendToDb(val)
+function sendToDb()
 {
 	fetch("http://localhost:3000/api/user")
 	.then(response => response.json())
@@ -32,7 +32,6 @@ function sendToDb(val)
 		let send = {};
 		send.episodes = getEpisodes();
 		send.seriesId = document.querySelector(".card").id;
-		send.val = val;
 
 		//console.log(val);
 
@@ -199,7 +198,7 @@ function selectAllSeries()
 			}
 		}
 
-		sendToDb(1);
+		sendToDb();
 
 	})	
 
@@ -214,7 +213,7 @@ function selectAllSeries()
 			}
 		}
 
-		sendToDb(2);
+		sendToDb();
 
 	})
 

@@ -66,6 +66,8 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 	console.log(req.user);
 	console.log("---------------------");
 
+
+
 	Models.userModel.findById(req.user.id, async (err, user) => {
 
 		if(!err)
@@ -76,6 +78,26 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 			//kayıtlı değil, yeni eklenecek
 			if(found == undefined)
 			{
+				let temp = 0;
+				let data = req.body.episodes;
+				for(let i=0; i<data.length; i++)
+				{
+					for(let j=0; j<data[i].length; j++)
+					{
+						if(data[i][j])
+							temp++;
+					}
+				}
+				
+				if(temp == 0)
+				{
+					console.log("eklenmedi!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+					res.end();
+					return;
+				}
+
+
+
 
 				let series = await Models.seriesModel.findById(req.body.seriesId)
 				user.series.push(series);

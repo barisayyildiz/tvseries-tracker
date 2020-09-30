@@ -17,7 +17,7 @@ async function makeAPICall(name)
 
 	console.log(object);
 
-	return {episodes : await webScrapping(object), title : data.Title, id : data.imdbID, poster : data.Poster};
+	return {episodes : await webScrapping(object), title : data.Title, id : data.imdbID, poster : data.Poster, plot : data.Plot};
 
 }
 
