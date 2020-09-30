@@ -1,9 +1,8 @@
 .wrapper
 {
 	width: 90%;
-	margin: 0px auto;
+	margin: 50px auto;
 	border: 1px solid black;
-	margin-top: 50px;
 }
 
 a

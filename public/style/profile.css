@@ -1,15 +1,19 @@
 .user-container
 {
-	width: 80%;
+	width: 90%;
 	border: 1px solid black;
-	margin: 0px auto;
+	margin: 50px auto;
 	text-align: center;
 	padding-top: 30px;
 }
 
+.user-container h4
+{
+	padding-bottom: 20px;
+}
+
 .user-container .inner-container
 {
-	width: 70%;
 	border: 1px solid red;
 	margin: 0px auto;
 }
@@ -18,12 +22,13 @@
 {
 	list-style: none;
 	padding : 0px;
+	display: grid;
+	grid-template-columns: 20% 20% 20% 20% 20%;
 }
 
 .user-list li
 {
 	/* Her bir elemanın boyutu*/
-	width: 40%;
 }
 
 .user-list li .card a img
@@ -31,3 +36,31 @@
 	width: 100%;
 
 }
+
+@media only screen and (max-width: 850px)
+{
+	.user-list
+	{
+		grid-template-columns: 33.3% 33.3% 33.3%;
+
+	}
+}
+
+@media only screen and (max-width: 550px)
+{
+	.user-list
+	{
+		grid-template-columns: 50% 50%;
+
+	}
+}
+
+@media only screen and (max-width: 450px)
+{
+	.user-list
+	{
+		grid-template-columns: 100%;
+
+	}
+}
+
