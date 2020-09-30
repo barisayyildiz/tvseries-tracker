@@ -4,7 +4,7 @@ const library = require("../library.js");
 const Models = require("../Models.js");
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
-router.get("/:id", ensureAuthenticated, (req, res) => {
+router.get("/:id", (req, res) => {
 
 	console.log(req.params);
 

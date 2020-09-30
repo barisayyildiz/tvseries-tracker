@@ -4,10 +4,10 @@ const library = require("../library.js");
 const Models = require("../Models.js");
 const bcrypt = require('bcrypt');
 const passport = require("passport");
-const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const { ensureAuthenticated, forwardAuthenticated, ensureAdmin} = require('../config/auth');
 
 
-router.get("/", ensureAuthenticated, async (req, res) => {
+router.get("/", async (req, res) => {
 
 	console.log(res.locals.loggedin);
 
@@ -80,10 +80,14 @@ router.post("/query", (req, res) => {
 })
 
 
-router.get("/add", async(req, res) => {
+router.get("/add", ensureAdmin, async(req, res) => {
 
 
-	res.render("add");
+	res.render("add", {
+
+		css : "../style/add.css"
+
+	});
 
 
 })
@@ -123,6 +127,8 @@ router.post("/save", async (req, res) => {
 	await Models.seriesModel.create(series);
 
 	let docs = await Models.seriesModel.find({});
+
+	res.send({name : series.name});
 
 })
 

@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const got = require("got");
 const jsdom = require("jsdom");
 const fetch = require("node-fetch");
@@ -5,7 +7,7 @@ const fetch = require("node-fetch");
 
 async function makeAPICall(name)
 {
-	let apikey = "976e02f";
+	let apikey = process.env.API_KEY;
 
 	//get data from IMDb API
 	let response = await fetch(`http://www.omdbapi.com/?apikey=${apikey}&t=${name}&type=series`)

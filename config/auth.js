@@ -1,3 +1,6 @@
+require("dotenv").config();
+
+
 module.exports = {
   ensureAuthenticated: function(req, res, next) {
     if (req.isAuthenticated()) {
@@ -11,5 +14,13 @@ module.exports = {
       return next();
     }
     res.redirect('/dashboard');      
+  },
+  ensureAdmin : function (req, res, next)
+  {
+    if(req.user != undefined && req.user.email == process.env.ADMIN_EMAIL)
+    {
+      return next();
+    }
+    res.redirect("/");
   }
 };
