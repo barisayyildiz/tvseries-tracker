@@ -1,11 +1,49 @@
-//Sayfa yüklendiğinde veri tabanından ilerlemeyi çek
-/*fetch("http://localhost:3000/series/json/tt3032476")
+// index episodes and seasons
+(function indexHeader()
+{
+
+	let list = document.getElementById("nav-tab").children;
+
+	for(let i=0; i<list.length; i++)
+		list[i].innerText = Number(i+1);
+
+})();
+
+(function indexEpisodes()
+{
+	let seasons = document.querySelectorAll('[role="tabpanel"]');
+
+	for(let i=0; i<seasons.length; i++)
+	{
+		let episodes = seasons[i].children[0].children[1].children;
+		for(let j=0; j<episodes.length; j++)
+		{
+			episodes[j].children[1].innerText = String(i+1); //season
+			episodes[j].children[2].innerText = String(j+1); //episode
+
+		}
+	}
+
+})();
+
+
+// Loading checked episodes to frontpage
+let node = document.querySelector(".card");
+console.log(node.id);
+
+fetch(`http://localhost:3000/api/series/${node.id}`)
 .then(response => response.json())
-.then(data => console.log(data));*/
+.then(data => {
+
+	console.log(data);
+	saveCheckedEpisodes(data.seasons);
+
+})
+.catch(e => console.log(e));
 
 
 
-// Tablodaki herhangi bir değişikliği server'a yolla
+// Send changes to server
 let tables = document.querySelectorAll("table");
 
 
@@ -20,41 +58,15 @@ tables.forEach(item => {
 })
 
 
-let qweqwe = document.querySelectorAll(".header");
-console.log(qweqwe);
-
-/*
-let tables = document.querySelectorAll("[type=checkbox]");
-console.log(tables);
-
-tables.forEach(input => {
-
-	input.onlick = () => {
-
-		sendToDb()
-
-	}
-
-})
-*/
-
-
 function sendToDb()
 {
 	fetch("http://localhost:3000/api/user")
 	.then(response => response.json())
 	.then(data => {
 
-		/*
-		let send = getEpisodes();
-		console.log(" >>> ", send);
-		*/
-
 		let send = {};
 		send.episodes = getEpisodes();
 		send.seriesId = document.querySelector(".card").id;
-
-		//console.log(val);
 
 		//gets user id
 		fetch(`http://localhost:3000/user/track/${data.id}`, {
@@ -91,21 +103,6 @@ function getEpisodes()
 }
 
 
-
-// Loading checked episodes to frontpage
-let node = document.querySelector(".card");
-console.log(node.id);
-
-fetch(`http://localhost:3000/api/series/${node.id}`)
-.then(response => response.json())
-.then(data => {
-
-	console.log(data);
-	saveCheckedEpisodes(data.seasons);
-
-})
-.catch(e => console.log(e));
-
 function saveCheckedEpisodes(data)
 {
 	console.log(data);
@@ -126,42 +123,6 @@ function saveCheckedEpisodes(data)
 	}
 }
 
-
-function indexHeader()
-{
-
-	let list = document.getElementById("nav-tab").children;
-
-	for(let i=0; i<list.length; i++)
-	{
-		//console.log(list[i].innerText);
-		list[i].innerText = Number(i+1);
-
-	}
-
-}
-
-function indexEpisodes()
-{
-
-	let seasons = document.querySelectorAll('[role="tabpanel"]');
-
-	for(let i=0; i<seasons.length; i++)
-	{
-		let episodes = seasons[i].children[0].children[1].children;
-		for(let j=0; j<episodes.length; j++)
-		{
-			episodes[j].children[1].innerText = String(i+1); //sezon
-			episodes[j].children[2].innerText = String(j+1); //bölüm
-
-		}
-
-
-
-	}
-
-
-}
 
 function selectAllSeason()
 {
@@ -238,8 +199,5 @@ function selectAllSeries()
 }
 
 
-indexHeader();
-indexEpisodes();
 selectAllSeason();
 selectAllSeries();
-
