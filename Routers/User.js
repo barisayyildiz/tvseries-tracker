@@ -100,7 +100,9 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 				series.counter = counter;
 
-				user.series.push(series);
+				// başa ekler
+				user.series.unshift(series);
+				//user.series.push(series);
 
 				console.log("counter : ", counter);
 
@@ -123,6 +125,10 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 			}else
 			{
+				//let found = series.find(item => item._id == req.body.seriesId);
+				let index = series.findIndex(item => item._id == req.body.seriesId);
+				series.splice(index,1);
+
 				let counter = 0;
 				//kayıtlı, güncellenecek
 				console.log(found);
@@ -142,17 +148,10 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 				if(counter > 0)
 				{
+					series.unshift(found);
 					user.save(function (err) {
 						if (err) return handleError(err);
 						console.log('series updated');
-						res.end();
-					});
-				}else
-				{
-					found.remove();
-					user.save(function (err) {
-						if (err) return handleError(err);
-						console.log('series removed');
 						res.end();
 					});
 				}
