@@ -24,7 +24,7 @@ app.listen(portNumber, () => console.log("Listening..."));
 
 let db = process.env.MONGODB_URI || "mongodb://localhost/test";
 mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true}, () => console.log("Connected to database"));
-
+console.log(db);
 
 //public directory
 app.use(express.static(__dirname + "/public"));

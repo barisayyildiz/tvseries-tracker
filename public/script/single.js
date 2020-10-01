@@ -69,7 +69,7 @@ function sendToDb()
 		send.seriesId = document.querySelector(".card").id;
 
 		//gets user id
-		fetch(`https://tvseries-tracker.herokuapp.com/api/user/track/${data.id}`, {
+		fetch(`https://tvseries-tracker.herokuapp.com/user/track/${data.id}`, {
 			method: "POST",
 			headers: {
 	      'Content-Type': 'application/json'
