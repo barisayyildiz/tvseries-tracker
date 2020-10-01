@@ -149,13 +149,13 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 				if(counter > 0)
 				{
 					series.unshift(found);
-					user.save(function (err) {
-						if (err) return handleError(err);
-						console.log('series updated');
-						res.end();
-					});
+					
 				}
-				
+				user.save(function (err) {
+					if (err) return handleError(err);
+					console.log('series updated');
+					res.end();
+				});
 			}
 
 		}

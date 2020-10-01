@@ -1,10 +1,9 @@
 .user-container
 {
 	width: 90%;
-	border: 1px solid black;
-	margin: 50px auto;
+	margin: 25px auto;
 	text-align: center;
-	padding-top: 30px;
+	padding-top: 10px;
 }
 
 .user-container h4
@@ -14,7 +13,6 @@
 
 .user-container .inner-container
 {
-	border: 1px solid red;
 	margin: 0px auto;
 }
 

@@ -9,22 +9,23 @@
 {
 	display: grid;
 	grid-template-columns: 20% 80%;
-	border: 1px solid green;
 	width: 70%;
 	margin: 30px auto;
-	padding : 10px;
+	padding : 15px;
 	border-radius: 10px;
+	background-color: #343a40;
+	color: white;
 }
 
 .card
 {
 	width: 100%;
+	border: 0px;
 }
 
 
 #seasons
 {
-	border: 1px solid black;
 	margin: 0px auto;
 	width: 100%;
 	padding : 10px;
@@ -33,11 +34,16 @@
 #nav-tab a
 {
 	margin : 0px auto;
+	color: white;
+}
+
+#nav-tab .active
+{
+	color: black;
 }
 
 table
 {
-	border : 1px solid red;
 	width: 100%;
 	margin : 0px auto;
 }
@@ -45,6 +51,7 @@ table
 table tbody tr td
 {
 	padding : 5px 10px;
+	border-bottom: 1px solid grey;
 }
 
 input[type="checkbox"]{
@@ -55,11 +62,17 @@ input[type="checkbox"]{
 thead tr
 {
 	margin : 30px;
+	border-bottom: 1px solid grey;
+}
+
+tbody tr:hover
+{
+	background-color: #a0aeb8;
+	color: black;
 }
 
 thead tr td
 {
-	border: 1px solid cyan;
 	padding : 10px;
 }
 

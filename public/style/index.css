@@ -2,7 +2,6 @@
 {
 	width: 90%;
 	margin: 50px auto;
-	border: 1px solid black;
 }
 
 a
@@ -13,7 +12,6 @@ a
 #indexPage
 {
 	list-style: none;
-	border: 1px solid red;
 	text-align: center;
 	display: grid;
 	grid-template-columns: 20% 20% 20% 20% 20%;

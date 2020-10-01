@@ -53,7 +53,7 @@ router.post("/query", (req, res) => {
 		console.log(docs);
 
 		if(docs.length > 4)
-			res.redirect(req.get('referer'));
+			res.redirect("/");
 
 		console.log(docs.length);
 
@@ -64,6 +64,7 @@ router.post("/query", (req, res) => {
 			frontPageData[frontPageData.length - 1].name = docs[i].name;
 			frontPageData[frontPageData.length - 1].id = docs[i].id;
 			frontPageData[frontPageData.length - 1].poster = docs[i].poster;
+			frontPageData[frontPageData.length - 1].plot = docs[i].plot;
 		}
 
 		console.log("frontpage : ", frontPageData);
