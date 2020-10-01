@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -16,11 +18,15 @@ const passport = require("passport");
 
 require('./config/passport')(passport);
 
-mongoose.connect("mongodb://localhost/test", {useNewUrlParser: true, useUnifiedTopology: true}, () => console.log("Connected to database"));
+
+let portNumber = process.env.PORT || 3000;
+app.listen(portNumber, () => console.log("Listening..."));
+
+let db = process.env.MONGODB_URI || "mongodb://localhost/test";
+mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true}, () => console.log("Connected to database"));
 
 
 //public directory
-
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 
@@ -65,10 +71,6 @@ app.use((req, res, next) => {
 })
 
 
-
-
-
-app.listen(3000, () => console.log("Listening..."));
 
 
 app.use("/", MainRouters);

@@ -44,8 +44,8 @@ let User = new mongoose.Schema({
 })
 
 
-let seriesModel = mongoose.model('dizi', Series, 'dizi');
-let userModel = mongoose.model("kullanici", User, 'kullanici')
+let seriesModel = mongoose.model('series', Series, 'series');
+let userModel = mongoose.model("user", User, 'user')
 
 
 module.exports = {seriesModel, userModel};
