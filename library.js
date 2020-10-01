@@ -25,9 +25,8 @@ async function makeAPICall(name)
 
 async function webScrapping(object)
 {
-
-	//https://www.imdb.com/title/tt0386676/episodes/_ajax?season=1
-
+	// Example
+	// https://www.imdb.com/title/tt0386676/episodes/_ajax?season=1
 	let episodeNames = [];
 
 	for(let i=1; i<=object.totalSeasons; i++)
@@ -38,26 +37,18 @@ async function webScrapping(object)
 
 		let res = await got(url);
 		let pagedom = new jsdom.JSDOM(res.body.toString());
-		//data is object
 		let data = pagedom.window.document.querySelector("div.list.detail.eplist").children;
 
 		let arr = [];
 		let keys = Object.keys(data);
 		keys.forEach(key => arr.push(data[key]));
 
-		//console.log(arr);
 
 
 		
 		arr.forEach(item => {
-
-			//console.log(item.children[1].children[2].textContent);
-
 			episodeNames[i-1].push(item.children[1].children[2].textContent);
-
 		})
-		
-
 	}
 
 	return episodeNames;
@@ -65,19 +56,4 @@ async function webScrapping(object)
 }
 
 
-function getTotalEpisodes(data)
-{
-
-	let total = 0;
-
-	for(let i=0; i<data.length; i++)
-		for(let j=0; j<data[i].length; j++)
-			total++;
-
-	console.log("<<<<<<<<<<<<<<<<<<<<<<total : ", total);
-
-	return total;
-}
-
-
-module.exports = {webScrapping : webScrapping, makeAPICall : makeAPICall, getTotalEpisodes : getTotalEpisodes};
+module.exports = {makeAPICall};

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const library = require("../library.js");
+const {makeAPICall} = require("../library.js");
 const Models = require("../Models.js");
 const bcrypt = require('bcrypt');
 const passport = require("passport");
@@ -9,96 +9,51 @@ const { ensureAuthenticated, forwardAuthenticated, ensureAdmin} = require('../co
 
 router.get("/", async (req, res) => {
 
-	console.log(res.locals.loggedin);
+	Models.seriesModel.find({}).lean().exec((err, docs) => {
 
-	Models.seriesModel.find({}, (err, docs) => {
+		res.render("index", {
 
-		let frontPageData = [];
-
-		docs.forEach(series => {
-
-			frontPageData.push({});
-			frontPageData[frontPageData.length-1].name = series.name;
-			frontPageData[frontPageData.length-1].id = series.id;
-			frontPageData[frontPageData.length-1].poster = series.poster;
-			frontPageData[frontPageData.length-1]._id = series._id;
-			frontPageData[frontPageData.length-1].plot = series.plot;
+			data : docs,
+			css : "./style/index.css"
 
 		})
 
-		//console.log(frontPageData);
-		res.render("index", {
-
-			data : frontPageData,
-			css : "./style/index.css"
-
-		});
-
 	})
-
 
 })
 
-
 router.post("/query", (req, res) => {
 
-	console.log(req.body);
-
-	Models.seriesModel.find({
-
-		"name" : {"$regex" : req.body.name, "$options" : "i"}
-
-	}, (err, docs) => {
-
-		console.log(docs);
+	Models.seriesModel.find({"name" : {"$regex" : req.body.name, "$options" : "i"}}).lean().exec((err, docs) => {
 
 		if(docs.length > 4)
 			res.redirect("/");
 
-		console.log(docs.length);
-
-		let frontPageData = [];
-		for(let i=0; i<docs.length; i++)
-		{
-			frontPageData.push({});
-			frontPageData[frontPageData.length - 1].name = docs[i].name;
-			frontPageData[frontPageData.length - 1].id = docs[i].id;
-			frontPageData[frontPageData.length - 1].poster = docs[i].poster;
-			frontPageData[frontPageData.length - 1].plot = docs[i].plot;
-		}
-
-		console.log("frontpage : ", frontPageData);
-
 		res.render("search", {
 
-			data : frontPageData,
+			data : docs,
 			css : "../style/search.css"
 
 		});
-
 	})
-
 })
 
 
 router.get("/add", ensureAdmin, async(req, res) => {
-
-
+	
 	res.render("add", {
-
+	
 		css : "../style/add.css"
-
+	
 	});
-
 
 })
 
+
 router.post("/save", async (req, res) => {
 
-	//let episodeNames = library.webScrapping(req.body.id, Number(req.body.totalSeasons));
-	console.log("req.body : ", req.body);
 
-	let {episodes, title, id, poster, plot} = await library.makeAPICall(req.body.name);
+	let {episodes, title, id, poster, plot} = await makeAPICall(req.body.name);
 
 	let series = {};
 	series.name = title, series.id = id, series.poster = poster, series.plot = plot, series.counter = 0, series.fav = false;
@@ -119,10 +74,7 @@ router.post("/save", async (req, res) => {
 		}
 	}
 
-	//series.total = library.getTotalEpisodes(series.season);
 	console.log(episodes);
-
-	//console.log(series);
 	series.seasons.forEach(row => console.log(row));
 
 	await Models.seriesModel.create(series);
@@ -146,8 +98,6 @@ router.get("/register", (req, res) => {
 })
 
 router.post("/register", async (req, res) => {
-
-	console.log("registered as : ", req.body);
 
 	try
 	{
@@ -175,20 +125,14 @@ router.post("/register", async (req, res) => {
 
 					req.flash("registered", "registered, now you can login...");
 
-					res.redirect("/login");
-
-					
+					res.redirect("/login");					
 				}else
 				{
 					
 					req.flash("already_registered", "This email is already registered");
 					res.redirect("/login");
-
-					
 				}
 			})
-			
-
 		}
 
 
@@ -197,17 +141,10 @@ router.post("/register", async (req, res) => {
 		res.redirect("/register");
 	}
 
-
-
-
-
 })
 
 router.get("/login", (req, res) => {
 
-	console.log(res.locals.loggedin);
-
-	//flash mesajları ekle !!!
 	res.render("login", {
 
 		css : "./style/login.css",
@@ -237,5 +174,6 @@ router.get('/logout', (req, res) => {
   req.flash('logout', 'You are logged out');
   res.redirect('/login');
 });
+
 
 module.exports = router;

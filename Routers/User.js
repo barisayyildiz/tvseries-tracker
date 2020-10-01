@@ -6,11 +6,7 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 
 router.get("/:id", ensureAuthenticated, (req, res) => {
 
-	console.log(req.params);
-
 	Models.userModel.find({_id : req.params.id}).lean().exec((err, docs) => {
-
-		console.log(docs[0]);
 
 		let data = {};
 		data.username = docs[0].username;
@@ -18,57 +14,18 @@ router.get("/:id", ensureAuthenticated, (req, res) => {
 
 		console.log("length : ", data.series.length);
 
-		//res.send(docs[0]);
 		res.render("profile", {
 
 			css : "../style/profile.css",
 			data : data
 
 		});
-
 	})
-
-
 })
-
-
-router.post("/track/fav/:id", ensureAuthenticated, (req, res) => {
-
-	//favorilere ekle
-
-	console.log(req.body);
-	res.end();
-
-	Models.userModel.findById(req.user.id, async(err, user) => {
-
-		if(!err)
-		{
-			let series = user.series;
-			console.log(series);
-			let found = series.find(item => item._id == req.body.seriesId);
-
-			found.fav = !found.fav;
-
-			await user.save();
-			console.log("saved");				
-			
-		}
-
-	})
-
-
-})
-
 
 
 // bölümleri kullanıcı hesabına ekleme, çıkarma, güncelleme
 router.post("/track/:id", ensureAuthenticated, (req, res) => {
-	console.log("---------------------");
-	console.log(req.body);
-	//console.log(req.user);
-	console.log("---------------------");
-
-
 
 	Models.userModel.findById(req.user.id, async (err, user) => {
 
@@ -82,9 +39,6 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 			{
 
 				let series = await Models.seriesModel.findById(req.body.seriesId)
-				//user.series.push(series);
-
-				//await user.save();
 
 				let counter = 0;
 
@@ -102,9 +56,6 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 				// başa ekler
 				user.series.unshift(series);
-				//user.series.push(series);
-
-				console.log("counter : ", counter);
 
 				if(counter > 0)
 				{
@@ -125,12 +76,10 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 			}else
 			{
-				//let found = series.find(item => item._id == req.body.seriesId);
 				let index = series.findIndex(item => item._id == req.body.seriesId);
 				series.splice(index,1);
 
 				let counter = 0;
-				//kayıtlı, güncellenecek
 				console.log(found);
 				for(let i=0; i<found.seasons.length; i++)
 				{
@@ -143,8 +92,6 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 				}
 
 				found.counter = counter;
-
-				console.log("counter : ", counter);
 
 				if(counter > 0)
 				{
@@ -161,8 +108,6 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 		}
 
 	})
-
-
 })
 
 module.exports = router;

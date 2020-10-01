@@ -9,8 +9,6 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 //bu api ile dizi bilgilerine erişilebilir
 router.get("/series/:id", ensureAuthenticated, (req, res) => {
 
-	console.log(req.user);
-
 	Models.userModel.findOne({_id : req.user.id}, (err, user) => {
 
 		let series = user.series;
