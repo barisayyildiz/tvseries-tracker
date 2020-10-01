@@ -31,7 +31,7 @@
 let node = document.querySelector(".card");
 console.log(node.id);
 
-fetch(`http://localhost:3000/api/series/${node.id}`)
+fetch(`https://tvseries-tracker.herokuapp.com/api/series/${node.id}`)
 .then(response => response.json())
 .then(data => {
 
@@ -60,7 +60,7 @@ tables.forEach(item => {
 
 function sendToDb()
 {
-	fetch("http://localhost:3000/api/user")
+	fetch("https://tvseries-tracker.herokuapp.com/api/user")
 	.then(response => response.json())
 	.then(data => {
 
@@ -69,7 +69,7 @@ function sendToDb()
 		send.seriesId = document.querySelector(".card").id;
 
 		//gets user id
-		fetch(`http://localhost:3000/user/track/${data.id}`, {
+		fetch(`https://tvseries-tracker.herokuapp.com/api/user/track/${data.id}`, {
 			method: "POST",
 			headers: {
 	      'Content-Type': 'application/json'
