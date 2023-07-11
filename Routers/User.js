@@ -1,34 +1,26 @@
 const express = require("express");
 const router = express.Router();
-const library = require("../library.js");
 const Models = require("../Models.js");
-const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const { ensureAuthenticated } = require('../config/auth');
 
 router.get("/:id", ensureAuthenticated, (req, res) => {
-
-	Models.userModel.find({_id : req.params.id}).lean().exec((err, docs) => {
-
-		let data = {};
-		data.username = docs[0].username;
-		data.series = docs[0].series;
-
-		console.log("length : ", data.series.length);
-
-		res.render("profile", {
-
-			css : "../style/profile.css",
-			data : data
-
-		});
+	Models.userModel.findOne({_id : req.params.id}).lean().exec((err, docs) => {
+		if(docs){
+			const { username, series } = docs;
+			res.render("profile", {
+				css : "../style/profile.css",
+				data : {
+					username,
+					series
+				}
+			});
+		}
 	})
 })
 
-
 // bölümleri kullanıcı hesabına ekleme, çıkarma, güncelleme
 router.post("/track/:id", ensureAuthenticated, (req, res) => {
-
 	Models.userModel.findById(req.user.id, async (err, user) => {
-
 		if(!err)
 		{
 			let series = user.series;			
@@ -37,11 +29,9 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 			//kayıtlı değil, yeni eklenecek
 			if(found == undefined)
 			{
-
 				let series = await Models.seriesModel.findById(req.body.seriesId)
 
 				let counter = 0;
-
 				for(let i=0; i<series.seasons.length; i++)
 				{
 					for(let j=0; j<series.seasons[i].episodes.length; j++)
@@ -56,7 +46,6 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 				// başa ekler
 				user.series.unshift(series);
-
 				if(counter > 0)
 				{
 					user.save(function (err) {
@@ -69,18 +58,16 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 					found.remove();
 					user.save(function (err) {
 						if (err) return handleError(err);
-						console.log('series removed');r
+						console.log('series removed');
 						res.end();
 					});
 				}
-
 			}else
 			{
 				let index = series.findIndex(item => item._id == req.body.seriesId);
 				series.splice(index,1);
 
 				let counter = 0;
-				console.log(found);
 				for(let i=0; i<found.seasons.length; i++)
 				{
 					for(let j=0; j<found.seasons[i].episodes.length; j++)
@@ -93,10 +80,8 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 
 				found.counter = counter;
 
-				if(counter > 0)
-				{
-					series.unshift(found);
-					
+				if(counter > 0){
+					series.unshift(found);	
 				}
 				user.save(function (err) {
 					if (err) return handleError(err);
@@ -104,9 +89,7 @@ router.post("/track/:id", ensureAuthenticated, (req, res) => {
 					res.end();
 				});
 			}
-
 		}
-
 	})
 })
 

@@ -19,6 +19,7 @@
     "express-session": "^1.17.1",
     "got": "^11.6.2",
     "jsdom": "^16.4.0",
+    "mongodb": "^5.7.0",
     "mongoose": "^5.10.5",
     "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
